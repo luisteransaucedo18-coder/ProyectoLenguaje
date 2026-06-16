@@ -1,44 +1,45 @@
 # Sistema web recomendador de juegos
 
-Aplicacion web hecha con Flask para recomendar videojuegos segun preferencias del usuario.
+Aplicacion web hecha con Flask para recomendar videojuegos segun las preferencias del usuario. El proyecto usa Supabase PostgreSQL como base de datos, procesamiento funcional para puntuar juegos y reglas logicas con pyDatalog para reforzar recomendaciones.
 
 ## Requisitos
 
 - Python 3.11 o superior
 - pip
+- Una cuenta/proyecto en Supabase
 
 ## Instalacion
 
 ```powershell
-python -m venv .venv
+py -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
+py -m pip install -r requirements.txt
 ```
 
-## Conexion MySQL
+## Variables de entorno
 
-La aplicacion usa MySQL en `localhost:3306` con el usuario `root`.
-
-1. Copia `.env.example` como `.env`.
-2. Coloca tu contrasena en `MYSQL_PASSWORD`.
-3. Ejecuta la aplicacion.
-
-Ejemplo:
+Copia `.env.example` como `.env` y usa estas variables:
 
 ```env
-MYSQL_HOST=localhost
-MYSQL_PORT=3306
-MYSQL_USER=root
-MYSQL_PASSWORD=tu_contrasena
-MYSQL_DATABASE=gamematch
+NEXT_PUBLIC_SUPABASE_URL=https://yishbkgdsxvosxyqfvlu.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_kaEBLkwbaKyhOhjwiR1vkQ_9EEFnEbL
 ```
 
-Al iniciar, el sistema crea automaticamente la base `gamematch`, crea la tabla `games` y carga los juegos iniciales si la tabla esta vacia.
+El proyecto tambien acepta `SUPABASE_URL` y `SUPABASE_PUBLISHABLE_KEY` como nombres alternativos, pero se dejaron las variables `NEXT_PUBLIC_` porque fueron las solicitadas.
+
+## Base de datos en Supabase
+
+1. Entra a tu proyecto de Supabase.
+2. Abre `SQL Editor`.
+3. Copia todo el contenido de `database_schema.sql`.
+4. Ejecuta el script.
+
+Ese archivo crea la tabla `public.games`, activa RLS, agrega una politica de lectura para `anon` y `authenticated`, y carga los juegos iniciales con `insert ... on conflict`.
 
 ## Ejecucion
 
 ```powershell
-python app.py
+py app.py
 ```
 
 Luego abre:
@@ -47,20 +48,23 @@ Luego abre:
 http://127.0.0.1:5000
 ```
 
+Si Supabase no responde o la tabla no existe, la aplicacion usa los juegos locales de `src/data.py` como respaldo para que el recomendador siga funcionando.
+
 ## Estructura
 
 ```text
 app.py
+database_schema.sql  Script PostgreSQL para crear tablas y datos en Supabase
 src/
-  controller.py     Controlador principal, flujo imperativo y eventos web
-  database.py       Conexion MySQL, creacion de tablas y lectura de juegos
-  data.py           Base de conocimiento con mas de 10 juegos
-  logic_rules.py    Reglas e inferencias con pyDatalog
-  processor.py      Procesamiento funcional, ranking y funciones puras
+  controller.py      Controlador principal de Flask
+  database.py        Conexion y lectura de juegos desde Supabase
+  data.py            Base local de respaldo con mas de 10 juegos
+  logic_rules.py     Reglas e inferencias con pyDatalog
+  processor.py       Ranking funcional y normalizacion de preferencias
 templates/
-  index.html        Interfaz web
+  index.html         Interfaz web
 static/
-  css/styles.css    Estilos visuales
+  css/styles.css     Estilos visuales oscuros similares a Steam
 ```
 
 ## Paradigmas usados

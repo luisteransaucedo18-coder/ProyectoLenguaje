@@ -1,6 +1,10 @@
 from pyDatalog import pyDatalog
 
 
+# Definición global de términos para evitar re-creación constante
+pyDatalog.create_terms("Juego, Genero, Dificultad, Duracion, Animo, Modo")
+pyDatalog.create_terms("es_genero, tiene_dificultad, tiene_duracion, provoca_animo, tiene_modo")
+pyDatalog.create_terms("recomendado_para_relajarse, recomendado_para_reto, recomendado_para_social, recomendado_por_preferencia")
 _loaded_games = []
 
 
@@ -11,26 +15,8 @@ def load_facts(games):
 
 
 def _configure_logic(games):
-    global Juego
-    global es_genero, tiene_dificultad, tiene_duracion, provoca_animo, tiene_modo
-    global recomendado_para_relajarse, recomendado_para_reto, recomendado_para_social, recomendado_por_preferencia
-
-    pyDatalog.Logic()
-    pyDatalog.create_terms("Juego, Genero, Dificultad, Duracion, Animo, Modo")
-    pyDatalog.create_terms("es_genero, tiene_dificultad, tiene_duracion, provoca_animo, tiene_modo")
-    pyDatalog.create_terms("recomendado_para_relajarse, recomendado_para_reto, recomendado_para_social, recomendado_por_preferencia")
-    local_terms = locals()
-    Juego = local_terms["Juego"]
-    es_genero = local_terms["es_genero"]
-    tiene_dificultad = local_terms["tiene_dificultad"]
-    tiene_duracion = local_terms["tiene_duracion"]
-    provoca_animo = local_terms["provoca_animo"]
-    tiene_modo = local_terms["tiene_modo"]
-    recomendado_para_relajarse = local_terms["recomendado_para_relajarse"]
-    recomendado_para_reto = local_terms["recomendado_para_reto"]
-    recomendado_para_social = local_terms["recomendado_para_social"]
-    recomendado_por_preferencia = local_terms["recomendado_por_preferencia"]
-
+    pyDatalog.clear() # Limpia hechos anteriores sin borrar las reglas
+    
     recomendado_para_relajarse(Juego) <= (
         provoca_animo(Juego, "relajarse")
         & tiene_dificultad(Juego, "baja")
@@ -70,8 +56,12 @@ def infer_recommended_game_ids(preferences):
         return []
 
     _configure_logic(_loaded_games)
-    query_result = recomendado_por_preferencia(Juego, mood)
-    if not query_result:
+    
+    try:
+        # Usamos Variable("Juego") para asegurar una consulta limpia en el motor
+        query_result = recomendado_por_preferencia(pyDatalog.Variable("Juego"), mood)
+        if not query_result:
+            return []
+        return [str(row[0]) for row in query_result]
+    except Exception:
         return []
-
-    return [str(row[0]) for row in query_result]

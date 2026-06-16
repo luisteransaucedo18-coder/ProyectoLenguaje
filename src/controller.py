@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+import os
 from dotenv import load_dotenv
+from flask import Flask, render_template, request
 
 from src.data import GAMES, OPTIONS
-from src.database import MySQLGameRepository
+from src.database import SupabaseGameRepository
 from src.logic_rules import infer_recommended_game_ids, load_facts
 from src.processor import build_explanation, normalize_preferences, rank_games
 
@@ -10,7 +11,7 @@ from src.processor import build_explanation, normalize_preferences, rank_games
 class GameRecommendationController:
     def __init__(self):
         load_dotenv()
-        self.repository = MySQLGameRepository()
+        self.repository = SupabaseGameRepository()
         self.database_connected = self.repository.initialize()
         self.games = self.repository.get_all_games() if self.database_connected else GAMES
         self.database_status = self.repository.status()
@@ -18,10 +19,11 @@ class GameRecommendationController:
         load_facts(self.games)
 
     def create_app(self):
+        base_dir = os.path.dirname(os.path.abspath(__file__))
         app = Flask(
             __name__,
-            template_folder="../templates",
-            static_folder="../static",
+            template_folder=os.path.join(base_dir, "..", "templates"),
+            static_folder=os.path.join(base_dir, "..", "static"),
         )
 
         @app.get("/")
