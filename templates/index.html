@@ -18,19 +18,19 @@
 
     <main>
         <section id="inicio" class="hero" aria-label="Juegos destacados">
-            <div class="hero-slide is-active" data-hero-slide style="--hero-image: url('https://images.unsplash.com/photo-1556438064-2d7646166914?auto=format&fit=crop&w=1800&q=85');">
+            <div class="hero-slide is-active" data-hero-slide style="--hero-image: url('{{ url_for('static', filename='images/Minecraft.jpg') }}');">
                 <span class="hero-game">Minecraft</span>
             </div>
-            <div class="hero-slide" data-hero-slide style="--hero-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1800&q=85');">
+            <div class="hero-slide" data-hero-slide style="--hero-image: url('{{ url_for('static', filename='images/The_Legend_of_Zelda_Breath_of_the_Wild.jpg') }}');">
                 <span class="hero-game">The Legend of Zelda</span>
             </div>
-            <div class="hero-slide" data-hero-slide style="--hero-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1800&q=85');">
+            <div class="hero-slide" data-hero-slide style="--hero-image: url('{{ url_for('static', filename='images/Hades.jpg') }}');">
                 <span class="hero-game">Hades</span>
             </div>
-            <div class="hero-slide" data-hero-slide style="--hero-image: url('https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=1800&q=85');">
+            <div class="hero-slide" data-hero-slide style="--hero-image: url('{{ url_for('static', filename='images/Valorant.jpg') }}');">
                 <span class="hero-game">Valorant</span>
             </div>
-            <div class="hero-slide" data-hero-slide style="--hero-image: url('https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=1800&q=85');">
+            <div class="hero-slide" data-hero-slide style="--hero-image: url('{{ url_for('static', filename='images/Elden Ring.jpg') }}');">
                 <span class="hero-game">Elden Ring</span>
             </div>
             <div class="hero-content">
@@ -144,7 +144,7 @@
                             </div>
                         </div>
                     {% else %}
-                        <img class="result-image" src="https://images.unsplash.com/photo-1556438064-2d7646166914?auto=format&fit=crop&w=900&q=80" alt="Control de videojuegos sobre una mesa">
+                        <img class="result-image" src="{{ url_for('static', filename='images/Minecraft.jpg') }}" alt="Imagen representativa de Minecraft">
                         <div class="result-content">
                             <p class="eyebrow">Resultado</p>
                             <h2>Completa el formulario</h2>
@@ -192,30 +192,7 @@
             </div>
         </section>
 
-        <section id="paradigmas" class="section paradigms-section">
-            <div class="section-heading">
-                <p class="eyebrow">Arquitectura</p>
-                <h2>Paradigmas aplicados</h2>
-            </div>
-
-            <div class="paradigm-grid">
-                <article>
-                    <span>01</span>
-                    <h3>Imperativo y OO</h3>
-                    <p>El controlador Flask coordina rutas, eventos del formulario, flujo de datos y respuesta final.</p>
-                </article>
-                <article>
-                    <span>02</span>
-                    <h3>Funcional</h3>
-                    <p>El ranking se calcula con funciones puras, map, filter, reduce y lambda.</p>
-                </article>
-                <article>
-                    <span>03</span>
-                    <h3>Logico</h3>
-                    <p>pyDatalog aplica reglas para inferir juegos adecuados segun animo, dificultad y modo.</p>
-                </article>
-            </div>
-        </section>
+        
     </main>
 
     {% if selected_game %}

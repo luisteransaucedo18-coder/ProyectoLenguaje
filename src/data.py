@@ -8,7 +8,7 @@ GAMES = [
         "difficulty": "media",
         "duration": "larga",
         "mood": "explorar",
-        "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/The_Legend_of_Zelda_Breath_of_the_Wild.jpg",
         "tags": ["mundo abierto", "fantasia", "exploracion"],
     },
     {
@@ -20,7 +20,7 @@ GAMES = [
         "difficulty": "baja",
         "duration": "larga",
         "mood": "relajarse",
-        "image": "https://images.unsplash.com/photo-1585504198199-20277593b94f?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/Stardew Valley.png",
         "tags": ["granjas", "cooperativo", "gestion"],
     },
     {
@@ -32,7 +32,7 @@ GAMES = [
         "difficulty": "alta",
         "duration": "media",
         "mood": "reto",
-        "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/Hades.jpg",
         "tags": ["roguelike", "mitologia", "combate"],
     },
     {
@@ -44,7 +44,7 @@ GAMES = [
         "difficulty": "media",
         "duration": "larga",
         "mood": "crear",
-        "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/Minecraft.jpg",
         "tags": ["construccion", "supervivencia", "creatividad"],
     },
     {
@@ -56,7 +56,7 @@ GAMES = [
         "difficulty": "alta",
         "duration": "corta",
         "mood": "competir",
-        "image": "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/Valorant.jpg",
         "tags": ["tactico", "equipos", "online"],
     },
     {
@@ -68,7 +68,7 @@ GAMES = [
         "difficulty": "baja",
         "duration": "corta",
         "mood": "divertirse",
-        "image": "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/Mario Kart 8 Deluxe.jpg",
         "tags": ["fiesta", "familia", "competitivo"],
     },
     {
@@ -80,7 +80,7 @@ GAMES = [
         "difficulty": "alta",
         "duration": "larga",
         "mood": "reto",
-        "image": "https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/Elden Ring.jpg",
         "tags": ["soulslike", "mundo abierto", "fantasia"],
     },
     {
@@ -92,7 +92,7 @@ GAMES = [
         "difficulty": "media",
         "duration": "corta",
         "mood": "competir",
-        "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/EA Sports FC 24.jpg",
         "tags": ["futbol", "online", "torneos"],
     },
     {
@@ -104,7 +104,7 @@ GAMES = [
         "difficulty": "media",
         "duration": "media",
         "mood": "pensar",
-        "image": "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/Portal 2.jpg",
         "tags": ["puzzles", "historia", "cooperativo"],
     },
     {
@@ -116,7 +116,7 @@ GAMES = [
         "difficulty": "baja",
         "duration": "larga",
         "mood": "relajarse",
-        "image": "https://images.unsplash.com/photo-1580327344181-c1163234e5a0?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/Animal Crossing New Horizons.jpg",
         "tags": ["vida social", "decoracion", "coleccion"],
     },
     {
@@ -128,7 +128,7 @@ GAMES = [
         "difficulty": "media",
         "duration": "media",
         "mood": "historia",
-        "image": "https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/God of War Ragnarok.jpg",
         "tags": ["narrativa", "mitologia", "combate"],
     },
     {
@@ -140,7 +140,7 @@ GAMES = [
         "difficulty": "baja",
         "duration": "corta",
         "mood": "divertirse",
-        "image": "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?auto=format&fit=crop&w=900&q=80",
+        "image": "/static/images/AmongUs.jpg",
         "tags": ["deduccion", "amigos", "online"],
     },
 ]

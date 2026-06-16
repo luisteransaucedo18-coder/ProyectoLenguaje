@@ -35,7 +35,7 @@ values
         'media',
         'larga',
         'explorar',
-        'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80',
+        '/static/images/The_Legend_of_Zelda_Breath_of_the_Wild.jpg',
         '["mundo abierto", "fantasia", "exploracion"]'::jsonb
     ),
     (
@@ -47,7 +47,7 @@ values
         'baja',
         'larga',
         'relajarse',
-        'https://images.unsplash.com/photo-1585504198199-20277593b94f?auto=format&fit=crop&w=900&q=80',
+        '/static/images/Stardew Valley.png',
         '["granjas", "cooperativo", "gestion"]'::jsonb
     ),
     (
@@ -59,7 +59,7 @@ values
         'alta',
         'media',
         'reto',
-        'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=80',
+        '/static/images/Hades.jpg',
         '["roguelike", "mitologia", "combate"]'::jsonb
     ),
     (
@@ -71,7 +71,7 @@ values
         'media',
         'larga',
         'crear',
-        'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=80',
+        '/static/images/Minecraft.jpg',
         '["construccion", "supervivencia", "creatividad"]'::jsonb
     ),
     (
@@ -83,7 +83,7 @@ values
         'alta',
         'corta',
         'competir',
-        'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=900&q=80',
+        '/static/images/Valorant.jpg',
         '["tactico", "equipos", "online"]'::jsonb
     ),
     (
@@ -95,7 +95,7 @@ values
         'baja',
         'corta',
         'divertirse',
-        'https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=900&q=80',
+        '/static/images/Mario Kart 8 Deluxe.jpg',
         '["fiesta", "familia", "competitivo"]'::jsonb
     ),
     (
@@ -107,7 +107,7 @@ values
         'alta',
         'larga',
         'reto',
-        'https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=900&q=80',
+        '/static/images/Elden Ring.jpg',
         '["soulslike", "mundo abierto", "fantasia"]'::jsonb
     ),
     (
@@ -119,7 +119,7 @@ values
         'media',
         'corta',
         'competir',
-        'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=80',
+        '/static/images/EA Sports FC 24.jpg',
         '["futbol", "online", "torneos"]'::jsonb
     ),
     (
@@ -131,7 +131,7 @@ values
         'media',
         'media',
         'pensar',
-        'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=900&q=80',
+        '/static/images/Portal 2.jpg',
         '["puzzles", "historia", "cooperativo"]'::jsonb
     ),
     (
@@ -143,7 +143,7 @@ values
         'baja',
         'larga',
         'relajarse',
-        'https://images.unsplash.com/photo-1580327344181-c1163234e5a0?auto=format&fit=crop&w=900&q=80',
+        '/static/images/Animal Crossing New Horizons.jpg',
         '["vida social", "decoracion", "coleccion"]'::jsonb
     ),
     (
@@ -155,7 +155,7 @@ values
         'media',
         'media',
         'historia',
-        'https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=900&q=80',
+        '/static/images/God of War Ragnarok.jpg',
         '["narrativa", "mitologia", "combate"]'::jsonb
     ),
     (
@@ -167,7 +167,7 @@ values
         'baja',
         'corta',
         'divertirse',
-        'https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?auto=format&fit=crop&w=900&q=80',
+        '/static/images/AmongUs.jpg',
         '["deduccion", "amigos", "online"]'::jsonb
     )
 on conflict (id) do update set

@@ -5,6 +5,9 @@ from supabase import Client, create_client
 from src.data import GAMES
 
 
+LOCAL_IMAGES_BY_GAME_ID = {game["id"]: game["image"] for game in GAMES}
+
+
 class SupabaseGameRepository:
     def __init__(self):
         self.url = os.getenv("NEXT_PUBLIC_SUPABASE_URL") or os.getenv("SUPABASE_URL", "")
@@ -41,7 +44,13 @@ class SupabaseGameRepository:
                 .order("name")
                 .execute()
             )
-            return response.data or GAMES
+            return [
+                {
+                    **game,
+                    "image": LOCAL_IMAGES_BY_GAME_ID.get(game["id"], game.get("image", "")),
+                }
+                for game in response.data
+            ] or GAMES
         except Exception as exc:
             self.last_error = str(exc)
             return GAMES
