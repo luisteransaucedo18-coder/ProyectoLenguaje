@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recomendador de Juegos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="#inicio">GameMatch</a>
+        <nav class="nav-links" aria-label="Navegacion principal">
+            <a href="#recomendador">Recomendador</a>
+            <a href="#juegos">Juegos</a>
+            <a href="#paradigmas">Paradigmas</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <p class="eyebrow">Sistema web en Python</p>
+                <h1>Encuentra tu proximo juego ideal</h1>
+                <p>Selecciona tus preferencias y recibe una recomendacion final generada con Flask, MySQL, procesamiento funcional y reglas logicas con pyDatalog.</p>
+                <a class="hero-button" href="#recomendador">Probar recomendador</a>
+            </div>
+        </section>
+
+        <section id="recomendador" class="section recommender-section">
+            <div class="section-heading">
+                <p class="eyebrow">Recomendador</p>
+                <h2>Personaliza tu busqueda</h2>
+                <p>El sistema compara tus datos con la base de conocimiento y ordena las mejores coincidencias.</p>
+            </div>
+
+            <div class="recommender-grid">
+                <section class="panel form-panel">
+                    <form action="{{ url_for('recommend') }}#recomendador" method="post" class="preferences-form">
+                        <label>
+                            Genero
+                            <select name="genre" required>
+                                <option value="">Selecciona</option>
+                                {% for genre in options.genres %}
+                                    <option value="{{ genre }}" {% if preferences.genre == genre %}selected{% endif %}>{{ genre|capitalize }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+
+                        <label>
+                            Plataforma
+                            <select name="platform" required>
+                                <option value="">Selecciona</option>
+                                {% for platform in options.platforms %}
+                                    <option value="{{ platform }}" {% if preferences.platform == platform %}selected{% endif %}>{{ platform|capitalize }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+
+                        <label>
+                            Modo
+                            <select name="mode" required>
+                                <option value="">Selecciona</option>
+                                {% for mode in options.modes %}
+                                    <option value="{{ mode }}" {% if preferences.mode == mode %}selected{% endif %}>{{ mode|capitalize }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+
+                        <label>
+                            Dificultad
+                            <select name="difficulty" required>
+                                <option value="">Selecciona</option>
+                                {% for difficulty in options.difficulties %}
+                                    <option value="{{ difficulty }}" {% if preferences.difficulty == difficulty %}selected{% endif %}>{{ difficulty|capitalize }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+
+                        <label>
+                            Duracion
+                            <select name="duration" required>
+                                <option value="">Selecciona</option>
+                                {% for duration in options.durations %}
+                                    <option value="{{ duration }}" {% if preferences.duration == duration %}selected{% endif %}>{{ duration|capitalize }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+
+                        <label>
+                            Quiero
+                            <select name="mood" required>
+                                <option value="">Selecciona</option>
+                                {% for mood in options.moods %}
+                                    <option value="{{ mood }}" {% if preferences.mood == mood %}selected{% endif %}>{{ mood|capitalize }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+
+                        <button type="submit">Recomendar juego</button>
+                    </form>
+                </section>
+
+                <section class="panel result-panel">
+                    {% if selected_game %}
+                        <img class="result-image" src="{{ selected_game.image }}" alt="Imagen representativa de {{ selected_game.name }}">
+                        <div class="result-content">
+                            <p class="eyebrow">Recomendacion final</p>
+                            <h2>{{ selected_game.name }}</h2>
+                            <p class="score">Puntaje: {{ selected_game.score }}</p>
+                            <p>{{ selected_game.explanation }}</p>
+                            {% if selected_game.logical_match %}
+                                <p class="logic-badge">Inferido por reglas logicas</p>
+                            {% endif %}
+                            <div class="tags">
+                                {% for tag in selected_game.tags %}
+                                    <span>{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <img class="result-image" src="https://images.unsplash.com/photo-1556438064-2d7646166914?auto=format&fit=crop&w=900&q=80" alt="Control de videojuegos sobre una mesa">
+                        <div class="result-content">
+                            <p class="eyebrow">Resultado</p>
+                            <h2>Completa el formulario</h2>
+                            <p>La recomendacion final aparecera aqui junto con el ranking de alternativas.</p>
+                        </div>
+                    {% endif %}
+                </section>
+            </div>
+        </section>
+
+        <section id="juegos" class="section games-section">
+            <div class="section-heading">
+                <p class="eyebrow">Base de conocimiento</p>
+                <h2>Juegos disponibles</h2>
+                <p>{{ games|length }} opciones cargadas desde MySQL para ser filtradas, inferidas y ordenadas.</p>
+            </div>
+
+            <div class="game-grid">
+                {% if recommendations %}
+                    {% for game in recommendations[:6] %}
+                        <article class="game-card">
+                            <img src="{{ game.image }}" alt="Imagen representativa de {{ game.name }}">
+                            <div class="game-card-body">
+                                <div>
+                                    <h3>{{ game.name }}</h3>
+                                    <p>{{ game.genre|capitalize }} | {{ game.platform|capitalize }} | {{ game.duration|capitalize }}</p>
+                                </div>
+                                <strong>{{ game.score }}</strong>
+                            </div>
+                        </article>
+                    {% endfor %}
+                {% else %}
+                    {% for game in games %}
+                        <article class="game-card">
+                            <img src="{{ game.image }}" alt="Imagen representativa de {{ game.name }}">
+                            <div class="game-card-body">
+                                <div>
+                                    <h3>{{ game.name }}</h3>
+                                    <p>{{ game.genre|capitalize }} | {{ game.platform|capitalize }} | {{ game.mood|capitalize }}</p>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </section>
+
+        <section id="paradigmas" class="section paradigms-section">
+            <div class="section-heading">
+                <p class="eyebrow">Arquitectura</p>
+                <h2>Paradigmas aplicados</h2>
+            </div>
+
+            <div class="paradigm-grid">
+                <article>
+                    <span>01</span>
+                    <h3>Imperativo y OO</h3>
+                    <p>El controlador Flask coordina rutas, eventos del formulario, flujo de datos y respuesta final.</p>
+                </article>
+                <article>
+                    <span>02</span>
+                    <h3>Funcional</h3>
+                    <p>El ranking se calcula con funciones puras, map, filter, reduce y lambda.</p>
+                </article>
+                <article>
+                    <span>03</span>
+                    <h3>Logico</h3>
+                    <p>pyDatalog aplica reglas para inferir juegos adecuados segun animo, dificultad y modo.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    {% if selected_game %}
+        <div class="recommendation-modal is-open" id="recommendationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-backdrop" data-close-modal></div>
+            <section class="modal-card">
+                <button class="modal-close" type="button" data-close-modal aria-label="Cerrar recomendacion">x</button>
+                <img class="modal-image" src="{{ selected_game.image }}" alt="Imagen representativa de {{ selected_game.name }}">
+                <div class="modal-body">
+                    <p class="eyebrow">Recomendacion actualizada</p>
+                    <h2 id="modalTitle">{{ selected_game.name }}</h2>
+                    <p class="score">Puntaje: {{ selected_game.score }}</p>
+                    <p>{{ selected_game.explanation }}</p>
+                    {% if selected_game.logical_match %}
+                        <p class="logic-badge">Inferido por reglas logicas</p>
+                    {% endif %}
+                    <div class="tags">
+                        {% for tag in selected_game.tags %}
+                            <span>{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    <button class="modal-action" type="button" data-close-modal>Ver ranking</button>
+                </div>
+            </section>
+        </div>
+    {% endif %}
+
+    <footer class="site-footer">
+        <strong>GameMatch</strong>
+        <p>Sistema web de recomendacion de juegos con Python 3.11+, Flask, MySQL y pyDatalog.</p>
+    </footer>
+
+    <script>
+        const modal = document.getElementById("recommendationModal");
+
+        if (modal) {
+            document.body.classList.add("modal-active");
+
+            document.querySelectorAll("[data-close-modal]").forEach((element) => {
+                element.addEventListener("click", () => {
+                    modal.classList.remove("is-open");
+                    document.body.classList.remove("modal-active");
+                });
+            });
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape") {
+                    modal.classList.remove("is-open");
+                    document.body.classList.remove("modal-active");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
