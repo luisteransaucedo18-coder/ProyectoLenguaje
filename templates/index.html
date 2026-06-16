@@ -17,12 +17,38 @@
     </header>
 
     <main>
-        <section id="inicio" class="hero">
+        <section id="inicio" class="hero" aria-label="Juegos destacados">
+            <div class="hero-slide is-active" data-hero-slide style="--hero-image: url('https://images.unsplash.com/photo-1556438064-2d7646166914?auto=format&fit=crop&w=1800&q=85');">
+                <span class="hero-game">Minecraft</span>
+            </div>
+            <div class="hero-slide" data-hero-slide style="--hero-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1800&q=85');">
+                <span class="hero-game">The Legend of Zelda</span>
+            </div>
+            <div class="hero-slide" data-hero-slide style="--hero-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1800&q=85');">
+                <span class="hero-game">Hades</span>
+            </div>
+            <div class="hero-slide" data-hero-slide style="--hero-image: url('https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=1800&q=85');">
+                <span class="hero-game">Valorant</span>
+            </div>
+            <div class="hero-slide" data-hero-slide style="--hero-image: url('https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=1800&q=85');">
+                <span class="hero-game">Elden Ring</span>
+            </div>
             <div class="hero-content">
-                <p class="eyebrow">Sistema web en Python</p>
+                <p class="eyebrow">Sistema De Recomendación de VideoJuegos</p>
                 <h1>Encuentra tu proximo juego ideal</h1>
-                <p>Selecciona tus preferencias y recibe una recomendacion final generada con Flask, Supabase PostgreSQL, procesamiento funcional y reglas logicas con pyDatalog.</p>
+                <p>Dinos qué te gusta y te diremos qué jugar. Tu próximo videojuego favorito está a solo un clic.</p>
                 <a class="hero-button" href="#recomendador">Probar recomendador</a>
+            </div>
+            <div class="hero-carousel-controls" aria-label="Controles del carrusel">
+                <button class="hero-control" type="button" data-hero-prev aria-label="Juego anterior">‹</button>
+                <div class="hero-dots" aria-label="Juegos del carrusel">
+                    <button class="hero-dot is-active" type="button" data-hero-dot="0" aria-label="Ver Minecraft"></button>
+                    <button class="hero-dot" type="button" data-hero-dot="1" aria-label="Ver The Legend of Zelda"></button>
+                    <button class="hero-dot" type="button" data-hero-dot="2" aria-label="Ver Hades"></button>
+                    <button class="hero-dot" type="button" data-hero-dot="3" aria-label="Ver Valorant"></button>
+                    <button class="hero-dot" type="button" data-hero-dot="4" aria-label="Ver Elden Ring"></button>
+                </div>
+                <button class="hero-control" type="button" data-hero-next aria-label="Juego siguiente">›</button>
             </div>
         </section>
 
@@ -223,6 +249,53 @@
     </footer>
 
     <script>
+        const heroSlides = Array.from(document.querySelectorAll("[data-hero-slide]"));
+        const heroDots = Array.from(document.querySelectorAll("[data-hero-dot]"));
+        const heroPrev = document.querySelector("[data-hero-prev]");
+        const heroNext = document.querySelector("[data-hero-next]");
+        let activeHeroSlide = 0;
+        let heroInterval;
+
+        const showHeroSlide = (index) => {
+            activeHeroSlide = (index + heroSlides.length) % heroSlides.length;
+
+            heroSlides.forEach((slide, slideIndex) => {
+                slide.classList.toggle("is-active", slideIndex === activeHeroSlide);
+            });
+
+            heroDots.forEach((dot, dotIndex) => {
+                dot.classList.toggle("is-active", dotIndex === activeHeroSlide);
+            });
+        };
+
+        const startHeroCarousel = () => {
+            window.clearInterval(heroInterval);
+            heroInterval = window.setInterval(() => {
+                showHeroSlide(activeHeroSlide + 1);
+            }, 5200);
+        };
+
+        if (heroSlides.length) {
+            heroPrev.addEventListener("click", () => {
+                showHeroSlide(activeHeroSlide - 1);
+                startHeroCarousel();
+            });
+
+            heroNext.addEventListener("click", () => {
+                showHeroSlide(activeHeroSlide + 1);
+                startHeroCarousel();
+            });
+
+            heroDots.forEach((dot) => {
+                dot.addEventListener("click", () => {
+                    showHeroSlide(Number(dot.dataset.heroDot));
+                    startHeroCarousel();
+                });
+            });
+
+            startHeroCarousel();
+        }
+
         const modal = document.getElementById("recommendationModal");
 
         if (modal) {
