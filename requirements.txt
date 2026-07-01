@@ -1,4 +1,4 @@
-Flask==3.0.3
-pyDatalog==0.17.4
-python-dotenv==1.0.1
-supabase>=2.0.0,<3.0.0
+Flask==3.0.3 #Micro-framework web de código abierto escrito en Python
+pyDatalog==0.17.4 #Biblioteca de Python que introduce el paradigma de la programación lógica
+python-dotenv==1.0.1 #Biblioteca para cargar variables de entorno desde un archivo .env
+supabase>=2.0.0,<3.0.0 #Base de datos en la nube para almacenar y recuperar datos de manera eficiente

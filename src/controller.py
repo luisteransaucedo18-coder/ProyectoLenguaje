@@ -18,6 +18,13 @@ class GameRecommendationController:
         self.options = OPTIONS
         load_facts(self.games)
 
+    def _refresh_games(self):
+        if self.database_connected:
+            self.games = self.repository.get_all_games()
+            self.database_status = self.repository.status()
+            load_facts(self.games)
+        return self.games
+
     def create_app(self):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         app = Flask(
@@ -26,8 +33,16 @@ class GameRecommendationController:
             static_folder=os.path.join(base_dir, "..", "static"),
         )
 
-        @app.get("/")
+        @app.after_request
+        def add_no_cache_headers(response):
+            response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+            response.headers["Pragma"] = "no-cache"
+            response.headers["Expires"] = "0"
+            return response
+
+        @app.get("/") 
         def index():
+            self._refresh_games()
             return render_template(
                 "index.html",
                 options=self.options,
@@ -40,9 +55,10 @@ class GameRecommendationController:
 
         @app.post("/recommend")
         def recommend():
+            games = self._refresh_games()
             preferences = normalize_preferences(request.form)
             logical_matches = infer_recommended_game_ids(preferences)
-            recommendations = rank_games(self.games, preferences, logical_matches)
+            recommendations = rank_games(games, preferences, logical_matches)
             selected_game = recommendations[0] if recommendations else None
 
             if selected_game:
@@ -54,7 +70,7 @@ class GameRecommendationController:
             return render_template(
                 "index.html",
                 options=self.options,
-                games=self.games,
+                games=games,
                 preferences=preferences,
                 recommendations=recommendations,
                 selected_game=selected_game,

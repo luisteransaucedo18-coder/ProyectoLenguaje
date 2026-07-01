@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Recomendador de Juegos</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script>
+        const savedTheme = localStorage.getItem("theme");
+        const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+        document.documentElement.dataset.theme = savedTheme || (prefersLight ? "light" : "dark");
+    </script>
 </head>
 <body>
     <header class="site-header">
@@ -12,8 +17,8 @@
         <nav class="nav-links" aria-label="Navegacion principal">
             <a href="#recomendador">Recomendador</a>
             <a href="#juegos">Juegos</a>
-            <a href="#paradigmas">Paradigmas</a>
         </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar a tema claro"></button>
     </header>
 
     <main>
@@ -38,6 +43,11 @@
                 <h1>Encuentra tu proximo juego ideal</h1>
                 <p>Dinos qué te gusta y te diremos qué jugar. Tu próximo videojuego favorito está a solo un clic.</p>
                 <a class="hero-button" href="#recomendador">Probar recomendador</a>
+                <div class="hero-stats" aria-label="Resumen del recomendador">
+                    <span><strong>{{ games|length }}</strong> juegos</span>
+                    <span><strong>6</strong> filtros</span>
+                    <span><strong>IA</strong> logica</span>
+                </div>
             </div>
             <div class="hero-carousel-controls" aria-label="Controles del carrusel">
                 <button class="hero-control" type="button" data-hero-prev aria-label="Juego anterior">‹</button>
@@ -61,7 +71,7 @@
 
             <div class="recommender-grid">
                 <section class="panel form-panel">
-                    <form action="{{ url_for('recommend') }}#recomendador" method="post" class="preferences-form">
+                    <form action="{{ url_for('recommend') }}#recomendador" method="post" class="preferences-form" autocomplete="off" data-preferences-form>
                         <label>
                             Genero
                             <select name="genre" required>
@@ -142,6 +152,7 @@
                                     <span>{{ tag }}</span>
                                 {% endfor %}
                             </div>
+                            <a class="reset-action" href="{{ url_for('index') }}?reset=1#recomendador">Buscar otro juego</a>
                         </div>
                     {% else %}
                         <img class="result-image" src="{{ url_for('static', filename='images/Minecraft.jpg') }}" alt="Imagen representativa de Minecraft">
@@ -215,6 +226,7 @@
                         {% endfor %}
                     </div>
                     <button class="modal-action" type="button" data-close-modal>Ver ranking</button>
+                    <a class="reset-action" href="{{ url_for('index') }}?reset=1#recomendador">Buscar otro juego</a>
                 </div>
             </section>
         </div>
@@ -230,8 +242,35 @@
         const heroDots = Array.from(document.querySelectorAll("[data-hero-dot]"));
         const heroPrev = document.querySelector("[data-hero-prev]");
         const heroNext = document.querySelector("[data-hero-next]");
+        const themeToggle = document.querySelector("[data-theme-toggle]");
+        const preferencesForm = document.querySelector("[data-preferences-form]");
         let activeHeroSlide = 0;
         let heroInterval;
+
+        {% if selected_game %}
+            history.replaceState(null, "", "{{ url_for('index') }}#recomendador");
+        {% else %}
+            if (preferencesForm) {
+                preferencesForm.reset();
+            }
+        {% endif %}
+
+        const updateThemeToggle = () => {
+            const isLight = document.documentElement.dataset.theme === "light";
+            themeToggle.dataset.themeMode = isLight ? "light" : "dark";
+            themeToggle.setAttribute("aria-label", isLight ? "Cambiar a tema oscuro" : "Cambiar a tema claro");
+        };
+
+        if (themeToggle) {
+            updateThemeToggle();
+
+            themeToggle.addEventListener("click", () => {
+                const nextTheme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+                document.documentElement.dataset.theme = nextTheme;
+                localStorage.setItem("theme", nextTheme);
+                updateThemeToggle();
+            });
+        }
 
         const showHeroSlide = (index) => {
             activeHeroSlide = (index + heroSlides.length) % heroSlides.length;
