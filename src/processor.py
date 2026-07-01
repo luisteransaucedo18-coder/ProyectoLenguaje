@@ -1,6 +1,6 @@
 from functools import reduce
 
-
+#Esta función transforma los datos del formulario en un diccionario limpio.
 def normalize_preferences(form_data):
     return {
         "genre": form_data.get("genre", ""),
@@ -21,7 +21,7 @@ def score_game(game, preferences, logical_bonus=0):
         "duration": 1,
         "mood": 3,
     }
-
+    #calcula el puntaje base
     base_score = reduce(
         lambda total, item: total + (item[1] if preferences.get(item[0]) == game.get(item[0]) else 0),
         weights.items(),
@@ -31,7 +31,7 @@ def score_game(game, preferences, logical_bonus=0):
     mode_bonus = 1 if preferences.get("mode") and game.get("mode") == "ambos" else 0
     return base_score + mode_bonus + logical_bonus
 
-
+#Primero transforma cada juego agregándole puntaje, luego filtra los que no sirven, y finalmente los ordena de mayor a menor compatibilidad.
 def rank_games(games, preferences, logical_matches):
     logical_ids = set(logical_matches)
 
