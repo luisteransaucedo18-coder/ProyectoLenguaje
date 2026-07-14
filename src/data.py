@@ -20,7 +20,7 @@ GAMES = [
         "difficulty": "baja",
         "duration": "larga",
         "mood": "relajarse",
-        "image": "/static/images/Stardew Valley.png",
+        "image": "/static/images/Stardew_Valley.png",
         "tags": ["granjas", "cooperativo", "gestion"],
     },
     {

@@ -47,7 +47,7 @@ values
         'baja',
         'larga',
         'relajarse',
-        '/static/images/Stardew Valley.png',
+        '/static/images/Stardew_Valley.png',
         '["granjas", "cooperativo", "gestion"]'::jsonb
     ),
     (
