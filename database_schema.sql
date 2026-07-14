@@ -95,7 +95,7 @@ values
         'baja',
         'corta',
         'divertirse',
-        '/static/images/Mario Kart 8 Deluxe.jpg',
+        '/static/images/Mario_Kart_8_Deluxe.jpg',
         '["fiesta", "familia", "competitivo"]'::jsonb
     ),
     (
@@ -107,7 +107,7 @@ values
         'alta',
         'larga',
         'reto',
-        '/static/images/Elden Ring.jpg',
+        '/static/images/Elden_Ring.jpg',
         '["soulslike", "mundo abierto", "fantasia"]'::jsonb
     ),
     (
@@ -119,7 +119,7 @@ values
         'media',
         'corta',
         'competir',
-        '/static/images/EA Sports FC 24.jpg',
+        '/static/images/EA_Sports_FC_24.jpg',
         '["futbol", "online", "torneos"]'::jsonb
     ),
     (
@@ -131,7 +131,7 @@ values
         'media',
         'media',
         'pensar',
-        '/static/images/Portal 2.jpg',
+        '/static/images/Portal_2.jpg',
         '["puzzles", "historia", "cooperativo"]'::jsonb
     ),
     (
@@ -143,7 +143,7 @@ values
         'baja',
         'larga',
         'relajarse',
-        '/static/images/Animal Crossing New Horizons.jpg',
+        '/static/images/Animal_Crossing_New_Horizons.jpg',
         '["vida social", "decoracion", "coleccion"]'::jsonb
     ),
     (
@@ -155,7 +155,7 @@ values
         'media',
         'media',
         'historia',
-        '/static/images/God of War Ragnarok.jpg',
+        '/static/images/God_of_War_Ragnarok.jpg',
         '["narrativa", "mitologia", "combate"]'::jsonb
     ),
     (

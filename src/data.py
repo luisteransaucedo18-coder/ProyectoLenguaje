@@ -68,7 +68,7 @@ GAMES = [
         "difficulty": "baja",
         "duration": "corta",
         "mood": "divertirse",
-        "image": "/static/images/Mario Kart 8 Deluxe.jpg",
+        "image": "/static/images/Mario_Kart_8_Deluxe.jpg",
         "tags": ["fiesta", "familia", "competitivo"],
     },
     {
@@ -80,7 +80,7 @@ GAMES = [
         "difficulty": "alta",
         "duration": "larga",
         "mood": "reto",
-        "image": "/static/images/Elden Ring.jpg",
+        "image": "/static/images/Elden_Ring.jpg",
         "tags": ["soulslike", "mundo abierto", "fantasia"],
     },
     {
@@ -92,7 +92,7 @@ GAMES = [
         "difficulty": "media",
         "duration": "corta",
         "mood": "competir",
-        "image": "/static/images/EA Sports FC 24.jpg",
+        "image": "/static/images/EA_Sports_FC_24.jpg",
         "tags": ["futbol", "online", "torneos"],
     },
     {
@@ -104,7 +104,7 @@ GAMES = [
         "difficulty": "media",
         "duration": "media",
         "mood": "pensar",
-        "image": "/static/images/Portal 2.jpg",
+        "image": "/static/images/Portal_2.jpg",
         "tags": ["puzzles", "historia", "cooperativo"],
     },
     {
@@ -116,7 +116,7 @@ GAMES = [
         "difficulty": "baja",
         "duration": "larga",
         "mood": "relajarse",
-        "image": "/static/images/Animal Crossing New Horizons.jpg",
+        "image": "/static/images/Animal_Crossing_New_Horizons.jpg",
         "tags": ["vida social", "decoracion", "coleccion"],
     },
     {
@@ -128,7 +128,7 @@ GAMES = [
         "difficulty": "media",
         "duration": "media",
         "mood": "historia",
-        "image": "/static/images/God of War Ragnarok.jpg",
+        "image": "/static/images/God_of_War_Ragnarok.jpg",
         "tags": ["narrativa", "mitologia", "combate"],
     },
     {
